@@ -1,0 +1,1441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://sms2.cdyne.com" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="https://messaging.cdyne.com" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Messaging" targetNamespace="http://sms2.cdyne.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="mms2SOAPbasicHttpsBinding_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="mms2wsHttpBinding_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="mms2wsHttpBindingSecure_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:import namespace="https://messaging.cdyne.com" location="http://messaging.cdyne.com/Messaging.svc?wsdl=wsdl0" />
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://sms2.cdyne.com/Imports">
+      <xsd:import schemaLocation="http://messaging.cdyne.com/Messaging.svc?xsd=xsd0" namespace="http://sms2.cdyne.com" />
+      <xsd:import schemaLocation="http://messaging.cdyne.com/Messaging.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://messaging.cdyne.com/Messaging.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SmsWS" />
+      <xsd:import schemaLocation="http://messaging.cdyne.com/Messaging.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMessaging_SimpleSMSsend_InputMessage">
+    <wsdl:part name="parameters" element="tns:SimpleSMSsend" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SimpleSMSsend_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SimpleSMSsendResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SimpleSMSsendWithPostback_InputMessage">
+    <wsdl:part name="parameters" element="tns:SimpleSMSsendWithPostback" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SimpleSMSsendWithPostback_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SimpleSMSsendWithPostbackResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_AdvancedSMSsend_InputMessage">
+    <wsdl:part name="parameters" element="tns:AdvancedSMSsend" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_AdvancedSMSsend_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AdvancedSMSsendResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetMessageStatusWebPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusWebPost" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetMessageStatusWebPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusWebPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetMessageStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageStatus" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetMessageStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetMessageStatusByReferenceID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusByReferenceID" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetMessageStatusByReferenceID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageStatusByReferenceIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetUnreadIncomingMessagesWebPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnreadIncomingMessagesWebPost" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetUnreadIncomingMessagesWebPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnreadIncomingMessagesWebPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetUnreadIncomingMessages_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnreadIncomingMessages" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetUnreadIncomingMessages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnreadIncomingMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_CancelMessageWebPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelMessageWebPost" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_CancelMessageWebPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelMessageWebPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_CancelMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelMessage" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_CancelMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetKeywordsWebPost_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetKeywordsWebPost" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetKeywordsWebPost_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetKeywordsWebPostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetKeywords_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetKeywords" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetKeywords_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetKeywordsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_AssignKeyword_InputMessage">
+    <wsdl:part name="parameters" element="tns:AssignKeyword" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_AssignKeyword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AssignKeywordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_RemoveKeyword_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveKeyword" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_RemoveKeyword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveKeywordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetPostbackSettingsForPhoneNumber_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostbackSettingsForPhoneNumber" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetPostbackSettingsForPhoneNumber_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostbackSettingsForPhoneNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetPostbackSettingsForLicenseKey_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostbackSettingsForLicenseKey" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetPostbackSettingsForLicenseKey_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPostbackSettingsForLicenseKeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SetPostbackEnabledForPhoneNumber_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetPostbackEnabledForPhoneNumber" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SetPostbackEnabledForPhoneNumber_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetPostbackEnabledForPhoneNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SetPostbackUrlForPhoneNumber_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetPostbackUrlForPhoneNumber" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SetPostbackUrlForPhoneNumber_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetPostbackUrlForPhoneNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SetPostbackEnabledForLicenseKey_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetPostbackEnabledForLicenseKey" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SetPostbackEnabledForLicenseKey_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetPostbackEnabledForLicenseKeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SetPostbackUrlForLicenseKey_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetPostbackUrlForLicenseKey" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SetPostbackUrlForLicenseKey_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetPostbackUrlForLicenseKeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_CreateMediaFromContent_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateMediaFromContent" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_CreateMediaFromContent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateMediaFromContentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_CreateMediaFromUrl_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateMediaFromUrl" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_CreateMediaFromUrl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateMediaFromUrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetMedia_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMedia" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetMedia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetMediaInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMediaInfo" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetMediaInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMediaInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_RemoveMedia_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveMedia" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_RemoveMedia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetUnsubscribedNumbers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnsubscribedNumbers" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_GetUnsubscribedNumbers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnsubscribedNumbersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_ReadIncomingMessages_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadIncomingMessages" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_ReadIncomingMessages_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadIncomingMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_ReadMessageStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadMessageStatus" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_ReadMessageStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadMessageStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SendMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessage" />
+  </wsdl:message>
+  <wsdl:message name="IMessaging_SendMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMessaging">
+    <wsdl:operation name="SimpleSMSsend">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/SimpleSMSsend" message="tns:IMessaging_SimpleSMSsend_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/SimpleSMSsendResponse" message="tns:IMessaging_SimpleSMSsend_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SimpleSMSsendWithPostback">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/SimpleSMSsendWithPostback" message="tns:IMessaging_SimpleSMSsendWithPostback_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/SimpleSMSsendWithPostbackResponse" message="tns:IMessaging_SimpleSMSsendWithPostback_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AdvancedSMSsend">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/AdvancedSMSsend" message="tns:IMessaging_AdvancedSMSsend_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/AdvancedSMSsendResponse" message="tns:IMessaging_AdvancedSMSsend_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusWebPost">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/GetMessageStatusWebPost" message="tns:IMessaging_GetMessageStatusWebPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/GetMessageStatusWebPostResponse" message="tns:IMessaging_GetMessageStatusWebPost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatus">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/GetMessageStatus" message="tns:IMessaging_GetMessageStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/GetMessageStatusResponse" message="tns:IMessaging_GetMessageStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByReferenceID">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/GetMessageStatusByReferenceID" message="tns:IMessaging_GetMessageStatusByReferenceID_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/GetMessageStatusByReferenceIDResponse" message="tns:IMessaging_GetMessageStatusByReferenceID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadIncomingMessagesWebPost">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessagesWebPost" message="tns:IMessaging_GetUnreadIncomingMessagesWebPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessagesWebPostResponse" message="tns:IMessaging_GetUnreadIncomingMessagesWebPost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadIncomingMessages">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessages" message="tns:IMessaging_GetUnreadIncomingMessages_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessagesResponse" message="tns:IMessaging_GetUnreadIncomingMessages_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelMessageWebPost">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/CancelMessageWebPost" message="tns:IMessaging_CancelMessageWebPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/CancelMessageWebPostResponse" message="tns:IMessaging_CancelMessageWebPost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelMessage">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/CancelMessage" message="tns:IMessaging_CancelMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/CancelMessageResponse" message="tns:IMessaging_CancelMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywordsWebPost">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/GetKeywordsWebPost" message="tns:IMessaging_GetKeywordsWebPost_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/GetKeywordsWebPostResponse" message="tns:IMessaging_GetKeywordsWebPost_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywords">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/GetKeywords" message="tns:IMessaging_GetKeywords_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/GetKeywordsResponse" message="tns:IMessaging_GetKeywords_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AssignKeyword">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/AssignKeyword" message="tns:IMessaging_AssignKeyword_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/AssignKeywordResponse" message="tns:IMessaging_AssignKeyword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveKeyword">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/RemoveKeyword" message="tns:IMessaging_RemoveKeyword_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/RemoveKeywordResponse" message="tns:IMessaging_RemoveKeyword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostbackSettingsForPhoneNumber">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/GetPostbackSettingsForPhoneNumber" message="tns:IMessaging_GetPostbackSettingsForPhoneNumber_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/GetPostbackSettingsForPhoneNumberResponse" message="tns:IMessaging_GetPostbackSettingsForPhoneNumber_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostbackSettingsForLicenseKey">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/GetPostbackSettingsForLicenseKey" message="tns:IMessaging_GetPostbackSettingsForLicenseKey_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/GetPostbackSettingsForLicenseKeyResponse" message="tns:IMessaging_GetPostbackSettingsForLicenseKey_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackEnabledForPhoneNumber">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/SetPostbackEnabledForPhoneNumber" message="tns:IMessaging_SetPostbackEnabledForPhoneNumber_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/SetPostbackEnabledForPhoneNumberResponse" message="tns:IMessaging_SetPostbackEnabledForPhoneNumber_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackUrlForPhoneNumber">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/SetPostbackUrlForPhoneNumber" message="tns:IMessaging_SetPostbackUrlForPhoneNumber_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/SetPostbackUrlForPhoneNumberResponse" message="tns:IMessaging_SetPostbackUrlForPhoneNumber_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackEnabledForLicenseKey">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/SetPostbackEnabledForLicenseKey" message="tns:IMessaging_SetPostbackEnabledForLicenseKey_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/SetPostbackEnabledForLicenseKeyResponse" message="tns:IMessaging_SetPostbackEnabledForLicenseKey_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackUrlForLicenseKey">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/Isms/SetPostbackUrlForLicenseKey" message="tns:IMessaging_SetPostbackUrlForLicenseKey_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/Isms/SetPostbackUrlForLicenseKeyResponse" message="tns:IMessaging_SetPostbackUrlForLicenseKey_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateMediaFromContent">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/IMessaging/CreateMediaFromContent" message="tns:IMessaging_CreateMediaFromContent_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/IMessaging/CreateMediaFromContentResponse" message="tns:IMessaging_CreateMediaFromContent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateMediaFromUrl">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/IMessaging/CreateMediaFromUrl" message="tns:IMessaging_CreateMediaFromUrl_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/IMessaging/CreateMediaFromUrlResponse" message="tns:IMessaging_CreateMediaFromUrl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMedia">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/IMessaging/GetMedia" message="tns:IMessaging_GetMedia_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/IMessaging/GetMediaResponse" message="tns:IMessaging_GetMedia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMediaInfo">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/IMessaging/GetMediaInfo" message="tns:IMessaging_GetMediaInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/IMessaging/GetMediaInfoResponse" message="tns:IMessaging_GetMediaInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveMedia">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/IMessaging/RemoveMedia" message="tns:IMessaging_RemoveMedia_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/IMessaging/RemoveMediaResponse" message="tns:IMessaging_RemoveMedia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnsubscribedNumbers">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/IMessaging/GetUnsubscribedNumbers" message="tns:IMessaging_GetUnsubscribedNumbers_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/IMessaging/GetUnsubscribedNumbersResponse" message="tns:IMessaging_GetUnsubscribedNumbers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadIncomingMessages">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/IMessaging/ReadIncomingMessages" message="tns:IMessaging_ReadIncomingMessages_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/IMessaging/ReadIncomingMessagesResponse" message="tns:IMessaging_ReadIncomingMessages_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadMessageStatus">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/IMessaging/ReadMessageStatus" message="tns:IMessaging_ReadMessageStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/IMessaging/ReadMessageStatusResponse" message="tns:IMessaging_ReadMessageStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <wsdl:input wsaw:Action="http://sms2.cdyne.com/IMessaging/SendMessage" message="tns:IMessaging_SendMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://sms2.cdyne.com/IMessaging/SendMessageResponse" message="tns:IMessaging_SendMessage_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="mms2SOAPbasicHttpBinding" type="tns:IMessaging">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SimpleSMSsend">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SimpleSMSsend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimpleSMSsendWithPostback">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SimpleSMSsendWithPostback" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AdvancedSMSsend">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/AdvancedSMSsend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusWebPost">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatusWebPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatus">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByReferenceID">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatusByReferenceID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadIncomingMessagesWebPost">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessagesWebPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadIncomingMessages">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelMessageWebPost">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/CancelMessageWebPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelMessage">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/CancelMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywordsWebPost">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetKeywordsWebPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywords">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetKeywords" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssignKeyword">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/AssignKeyword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveKeyword">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/RemoveKeyword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostbackSettingsForPhoneNumber">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetPostbackSettingsForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostbackSettingsForLicenseKey">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetPostbackSettingsForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackEnabledForPhoneNumber">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackEnabledForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackUrlForPhoneNumber">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackUrlForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackEnabledForLicenseKey">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackEnabledForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackUrlForLicenseKey">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackUrlForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMediaFromContent">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/CreateMediaFromContent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMediaFromUrl">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/CreateMediaFromUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMedia">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/GetMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMediaInfo">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/GetMediaInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveMedia">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/RemoveMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnsubscribedNumbers">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/GetUnsubscribedNumbers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadIncomingMessages">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/ReadIncomingMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadMessageStatus">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/ReadMessageStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/SendMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="mms2SOAPbasicHttpsBinding" type="tns:IMessaging">
+    <wsp:PolicyReference URI="#mms2SOAPbasicHttpsBinding_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SimpleSMSsend">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SimpleSMSsend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimpleSMSsendWithPostback">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SimpleSMSsendWithPostback" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AdvancedSMSsend">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/AdvancedSMSsend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusWebPost">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatusWebPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatus">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByReferenceID">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatusByReferenceID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadIncomingMessagesWebPost">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessagesWebPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadIncomingMessages">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelMessageWebPost">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/CancelMessageWebPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelMessage">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/CancelMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywordsWebPost">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetKeywordsWebPost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywords">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetKeywords" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssignKeyword">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/AssignKeyword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveKeyword">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/RemoveKeyword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostbackSettingsForPhoneNumber">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetPostbackSettingsForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostbackSettingsForLicenseKey">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/GetPostbackSettingsForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackEnabledForPhoneNumber">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackEnabledForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackUrlForPhoneNumber">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackUrlForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackEnabledForLicenseKey">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackEnabledForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackUrlForLicenseKey">
+      <soap:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackUrlForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMediaFromContent">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/CreateMediaFromContent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMediaFromUrl">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/CreateMediaFromUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMedia">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/GetMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMediaInfo">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/GetMediaInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveMedia">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/RemoveMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnsubscribedNumbers">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/GetUnsubscribedNumbers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadIncomingMessages">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/ReadIncomingMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadMessageStatus">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/ReadMessageStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap:operation soapAction="http://sms2.cdyne.com/IMessaging/SendMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="mms2wsHttpBinding" type="tns:IMessaging">
+    <wsp:PolicyReference URI="#mms2wsHttpBinding_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SimpleSMSsend">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SimpleSMSsend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimpleSMSsendWithPostback">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SimpleSMSsendWithPostback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AdvancedSMSsend">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/AdvancedSMSsend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusWebPost">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatusWebPost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatus">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByReferenceID">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatusByReferenceID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadIncomingMessagesWebPost">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessagesWebPost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadIncomingMessages">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelMessageWebPost">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/CancelMessageWebPost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelMessage">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/CancelMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywordsWebPost">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetKeywordsWebPost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywords">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetKeywords" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssignKeyword">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/AssignKeyword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveKeyword">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/RemoveKeyword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostbackSettingsForPhoneNumber">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetPostbackSettingsForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostbackSettingsForLicenseKey">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetPostbackSettingsForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackEnabledForPhoneNumber">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackEnabledForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackUrlForPhoneNumber">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackUrlForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackEnabledForLicenseKey">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackEnabledForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackUrlForLicenseKey">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackUrlForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMediaFromContent">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/CreateMediaFromContent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMediaFromUrl">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/CreateMediaFromUrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMedia">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/GetMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMediaInfo">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/GetMediaInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveMedia">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/RemoveMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnsubscribedNumbers">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/GetUnsubscribedNumbers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadIncomingMessages">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/ReadIncomingMessages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadMessageStatus">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/ReadMessageStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/SendMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="mms2wsHttpBindingSecure" type="tns:IMessaging">
+    <wsp:PolicyReference URI="#mms2wsHttpBindingSecure_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SimpleSMSsend">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SimpleSMSsend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SimpleSMSsendWithPostback">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SimpleSMSsendWithPostback" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AdvancedSMSsend">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/AdvancedSMSsend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusWebPost">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatusWebPost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatus">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageStatusByReferenceID">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetMessageStatusByReferenceID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadIncomingMessagesWebPost">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessagesWebPost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnreadIncomingMessages">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetUnreadIncomingMessages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelMessageWebPost">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/CancelMessageWebPost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelMessage">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/CancelMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywordsWebPost">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetKeywordsWebPost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKeywords">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetKeywords" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssignKeyword">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/AssignKeyword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveKeyword">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/RemoveKeyword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostbackSettingsForPhoneNumber">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetPostbackSettingsForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostbackSettingsForLicenseKey">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/GetPostbackSettingsForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackEnabledForPhoneNumber">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackEnabledForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackUrlForPhoneNumber">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackUrlForPhoneNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackEnabledForLicenseKey">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackEnabledForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPostbackUrlForLicenseKey">
+      <soap12:operation soapAction="http://sms2.cdyne.com/Isms/SetPostbackUrlForLicenseKey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMediaFromContent">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/CreateMediaFromContent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMediaFromUrl">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/CreateMediaFromUrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMedia">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/GetMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMediaInfo">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/GetMediaInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveMedia">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/RemoveMedia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnsubscribedNumbers">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/GetUnsubscribedNumbers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadIncomingMessages">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/ReadIncomingMessages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadMessageStatus">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/ReadMessageStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessage">
+      <soap12:operation soapAction="http://sms2.cdyne.com/IMessaging/SendMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Messaging">
+    <wsdl:port name="mms2SOAPbasicHttpBinding" binding="tns:mms2SOAPbasicHttpBinding">
+      <soap:address location="http://messaging.cdyne.com/Messaging.svc/Soap" />
+    </wsdl:port>
+    <wsdl:port name="mms2SOAPbasicHttpsBinding" binding="tns:mms2SOAPbasicHttpsBinding">
+      <soap:address location="https://messaging.cdyne.com/Messaging.svc/SecureSoap" />
+    </wsdl:port>
+    <wsdl:port name="mms2wsHttpBinding" binding="tns:mms2wsHttpBinding">
+      <soap12:address location="http://messaging.cdyne.com/Messaging.svc/WS" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://messaging.cdyne.com/Messaging.svc/WS</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="mms2wsHttpBindingSecure" binding="tns:mms2wsHttpBindingSecure">
+      <soap12:address location="https://messaging.cdyne.com/Messaging.svc/WS" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>https://messaging.cdyne.com/Messaging.svc/WS</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

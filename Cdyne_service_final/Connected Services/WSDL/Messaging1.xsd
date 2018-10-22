@@ -1,0 +1,880 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://sms2.cdyne.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://messaging.cdyne.com/Messaging.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://messaging.cdyne.com/Messaging.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://messaging.cdyne.com/Messaging.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SmsWS" />
+  <xs:element name="SimpleSMSsend">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SimpleSMSsendResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://sms2.cdyne.com" minOccurs="0" name="SimpleSMSsendResult" nillable="true" type="q1:SMSResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SMSResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cancelled" type="xs:boolean" />
+      <xs:element name="MessageID" type="ser:guid" />
+      <xs:element name="Queued" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ReferenceID" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element xmlns:q2="http://sms2.cdyne.com" name="SMSError" type="q2:SMSErrors" />
+      <xs:element xmlns:q3="http://sms2.cdyne.com" minOccurs="0" name="SMSIncomingMessages" nillable="true" type="q3:ArrayOfSMSIncomingMessage" />
+      <xs:element name="Sent" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SentDateTime" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q4="http://sms2.cdyne.com" name="SMSResponse" nillable="true" type="q4:SMSResponse" />
+  <xs:simpleType name="SMSErrors">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoError" />
+      <xs:enumeration value="STOPfromPhoneNumber" />
+      <xs:enumeration value="LicenseKeyInvalid" />
+      <xs:enumeration value="PhoneNumberInvalid" />
+      <xs:enumeration value="MessageInvalid" />
+      <xs:enumeration value="ScheduledDateTimeIsNotUTC" />
+      <xs:enumeration value="InvalidAssignedDID" />
+      <xs:enumeration value="NotFound" />
+      <xs:enumeration value="InternalError" />
+      <xs:enumeration value="ContactCdyneAccountSuspended" />
+      <xs:enumeration value="AssignedDIDRequired" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element xmlns:q5="http://sms2.cdyne.com" name="SMSErrors" nillable="true" type="q5:SMSErrors" />
+  <xs:complexType name="ArrayOfSMSIncomingMessage">
+    <xs:sequence>
+      <xs:element xmlns:q6="http://sms2.cdyne.com" minOccurs="0" maxOccurs="unbounded" name="SMSIncomingMessage" nillable="true" type="q6:SMSIncomingMessage" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q7="http://sms2.cdyne.com" name="ArrayOfSMSIncomingMessage" nillable="true" type="q7:ArrayOfSMSIncomingMessage" />
+  <xs:complexType name="SMSIncomingMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FromPhoneNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IncomingMessageID" type="ser:guid" />
+      <xs:element minOccurs="0" name="MatchedMessageID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResponseReceiveDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ToPhoneNumber" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q8="http://sms2.cdyne.com" name="SMSIncomingMessage" nillable="true" type="q8:SMSIncomingMessage" />
+  <xs:element name="SimpleSMSsendWithPostback">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+        <xs:element minOccurs="0" name="StatusPostBackURL" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SimpleSMSsendWithPostbackResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://sms2.cdyne.com" minOccurs="0" name="SimpleSMSsendWithPostbackResult" nillable="true" type="q9:SMSResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AdvancedSMSsend">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/SmsWS" minOccurs="0" name="AdvancedRequest" nillable="true" type="q10:SMSAdvancedRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfSMSRequest">
+    <xs:sequence>
+      <xs:element xmlns:q11="http://sms2.cdyne.com" minOccurs="0" maxOccurs="unbounded" name="SMSRequest" nillable="true" type="q11:SMSRequest" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q12="http://sms2.cdyne.com" name="ArrayOfSMSRequest" nillable="true" type="q12:ArrayOfSMSRequest" />
+  <xs:complexType name="SMSRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AssignedDID" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Message" nillable="true" type="xs:string" />
+      <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PhoneNumbers" nillable="true" type="q13:ArrayOfstring" />
+      <xs:element minOccurs="0" name="ReferenceID" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="ScheduledDateTime" type="xs:dateTime">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="StatusPostBackURL" nillable="true" type="xs:string">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q14="http://sms2.cdyne.com" name="SMSRequest" nillable="true" type="q14:SMSRequest" />
+  <xs:element name="AdvancedSMSsendResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://sms2.cdyne.com" minOccurs="0" name="AdvancedSMSsendResult" nillable="true" type="q15:ArrayOfSMSResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfSMSResponse">
+    <xs:sequence>
+      <xs:element xmlns:q16="http://sms2.cdyne.com" minOccurs="0" maxOccurs="unbounded" name="SMSResponse" nillable="true" type="q16:SMSResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q17="http://sms2.cdyne.com" name="ArrayOfSMSResponse" nillable="true" type="q17:ArrayOfSMSResponse" />
+  <xs:element name="GetMessageStatusWebPost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MessageID" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMessageStatusWebPostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://sms2.cdyne.com" minOccurs="0" name="GetMessageStatusWebPostResult" nillable="true" type="q18:SMSResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMessageStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MessageID" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMessageStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://sms2.cdyne.com" minOccurs="0" name="GetMessageStatusResult" nillable="true" type="q19:SMSResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMessageStatusByReferenceID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ReferenceID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMessageStatusByReferenceIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://sms2.cdyne.com" minOccurs="0" name="GetMessageStatusByReferenceIDResult" nillable="true" type="q20:ArrayOfSMSResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnreadIncomingMessagesWebPost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnreadIncomingMessagesWebPostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://sms2.cdyne.com" minOccurs="0" name="GetUnreadIncomingMessagesWebPostResult" nillable="true" type="q21:ArrayOfSMSIncomingMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnreadIncomingMessages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnreadIncomingMessagesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://sms2.cdyne.com" minOccurs="0" name="GetUnreadIncomingMessagesResult" nillable="true" type="q22:ArrayOfSMSIncomingMessage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelMessageWebPost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MessageID" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelMessageWebPostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CancelMessageWebPostResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MessageID" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelMessageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CancelMessageResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetKeywordsWebPost">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetKeywordsWebPostResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://sms2.cdyne.com" minOccurs="0" name="GetKeywordsWebPostResult" nillable="true" type="q23:SMSKeywordResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SMSKeywordResponse">
+    <xs:sequence>
+      <xs:element xmlns:q24="http://sms2.cdyne.com" minOccurs="0" name="ReturnCode" type="q24:SMSKeywordReturnCode" />
+      <xs:element xmlns:q25="http://sms2.cdyne.com" minOccurs="0" name="SMSKeyword" nillable="true" type="q25:ArrayOfKeywordResponseInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q26="http://sms2.cdyne.com" name="SMSKeywordResponse" nillable="true" type="q26:SMSKeywordResponse" />
+  <xs:simpleType name="SMSKeywordReturnCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoError" />
+      <xs:enumeration value="KeywordAdded" />
+      <xs:enumeration value="KeywordAlreadyInUse" />
+      <xs:enumeration value="ShortCodeNotAssignedToKey" />
+      <xs:enumeration value="LicenseKeyInvalid" />
+      <xs:enumeration value="KeywordInvalid" />
+      <xs:enumeration value="ShortCodeInvalid" />
+      <xs:enumeration value="KeywordRemoved" />
+      <xs:enumeration value="KeywordNotFound" />
+      <xs:enumeration value="InternalError" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element xmlns:q27="http://sms2.cdyne.com" name="SMSKeywordReturnCode" nillable="true" type="q27:SMSKeywordReturnCode" />
+  <xs:complexType name="ArrayOfKeywordResponseInfo">
+    <xs:sequence>
+      <xs:element xmlns:q28="http://sms2.cdyne.com" minOccurs="0" maxOccurs="unbounded" name="KeywordResponseInfo" nillable="true" type="q28:KeywordResponseInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q29="http://sms2.cdyne.com" name="ArrayOfKeywordResponseInfo" nillable="true" type="q29:ArrayOfKeywordResponseInfo" />
+  <xs:complexType name="KeywordResponseInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EntryDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Keyword" nillable="true" type="xs:string" />
+      <xs:element xmlns:q30="http://sms2.cdyne.com" minOccurs="0" name="ReturnCode" type="q30:SMSKeywordReturnCode" />
+      <xs:element minOccurs="0" name="ShortCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q31="http://sms2.cdyne.com" name="KeywordResponseInfo" nillable="true" type="q31:KeywordResponseInfo" />
+  <xs:element name="GetKeywords">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetKeywordsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://sms2.cdyne.com" minOccurs="0" name="GetKeywordsResult" nillable="true" type="q32:SMSKeywordResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AssignKeyword">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://sms2.cdyne.com" minOccurs="0" name="KeywordRequest" nillable="true" type="q33:SMSKeywordRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SMSKeywordRequest">
+    <xs:sequence>
+      <xs:element name="LicenseKey" type="ser:guid" />
+      <xs:element xmlns:q34="http://sms2.cdyne.com" minOccurs="0" name="SMSKeywords" nillable="true" type="q34:ArrayOfKeywordRequestInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q35="http://sms2.cdyne.com" name="SMSKeywordRequest" nillable="true" type="q35:SMSKeywordRequest" />
+  <xs:complexType name="ArrayOfKeywordRequestInfo">
+    <xs:sequence>
+      <xs:element xmlns:q36="http://sms2.cdyne.com" minOccurs="0" maxOccurs="unbounded" name="KeywordRequestInfo" nillable="true" type="q36:KeywordRequestInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q37="http://sms2.cdyne.com" name="ArrayOfKeywordRequestInfo" nillable="true" type="q37:ArrayOfKeywordRequestInfo" />
+  <xs:complexType name="KeywordRequestInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Keyword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShortCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q38="http://sms2.cdyne.com" name="KeywordRequestInfo" nillable="true" type="q38:KeywordRequestInfo" />
+  <xs:element name="AssignKeywordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://sms2.cdyne.com" minOccurs="0" name="AssignKeywordResult" nillable="true" type="q39:SMSKeywordResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveKeyword">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://sms2.cdyne.com" minOccurs="0" name="KeywordRequest" nillable="true" type="q40:SMSKeywordRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveKeywordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="http://sms2.cdyne.com" minOccurs="0" name="RemoveKeywordResult" nillable="true" type="q41:SMSKeywordResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPostbackSettingsForPhoneNumber">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+        <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPostbackSettingsForPhoneNumberResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q42="http://sms2.cdyne.com" minOccurs="0" name="GetPostbackSettingsForPhoneNumberResult" nillable="true" type="q42:ArrayOfPostbackSettingsResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfPostbackSettingsResponse">
+    <xs:sequence>
+      <xs:element xmlns:q43="http://sms2.cdyne.com" minOccurs="0" maxOccurs="unbounded" name="PostbackSettingsResponse" nillable="true" type="q43:PostbackSettingsResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q44="http://sms2.cdyne.com" name="ArrayOfPostbackSettingsResponse" nillable="true" type="q44:ArrayOfPostbackSettingsResponse" />
+  <xs:complexType name="PostbackSettingsResponse">
+    <xs:sequence>
+      <xs:element name="Country" nillable="true" type="xs:string" />
+      <xs:element name="PhoneNumber" nillable="true" type="xs:string" />
+      <xs:element name="PostbackEnabled" type="xs:boolean" />
+      <xs:element xmlns:q45="http://sms2.cdyne.com" name="PostbackType" type="q45:SMSPostbackType" />
+      <xs:element name="PostbackUrl" nillable="true" type="xs:string" />
+      <xs:element xmlns:q46="http://sms2.cdyne.com" name="ReturnCode" type="q46:SMSPostbackReturnCode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q47="http://sms2.cdyne.com" name="PostbackSettingsResponse" nillable="true" type="q47:PostbackSettingsResponse" />
+  <xs:simpleType name="SMSPostbackType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="All" />
+      <xs:enumeration value="DeliveryReceipt" />
+      <xs:enumeration value="IncomingMessage" />
+      <xs:enumeration value="OutgoingMessage" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element xmlns:q48="http://sms2.cdyne.com" name="SMSPostbackType" nillable="true" type="q48:SMSPostbackType" />
+  <xs:simpleType name="SMSPostbackReturnCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NoError" />
+      <xs:enumeration value="InvalidLicenseKey" />
+      <xs:enumeration value="InvalidUrl" />
+      <xs:enumeration value="InvalidPhoneNumber" />
+      <xs:enumeration value="InvalidPostbackType" />
+      <xs:enumeration value="NotFound" />
+      <xs:enumeration value="InvalidCountry" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element xmlns:q49="http://sms2.cdyne.com" name="SMSPostbackReturnCode" nillable="true" type="q49:SMSPostbackReturnCode" />
+  <xs:element name="GetPostbackSettingsForLicenseKey">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPostbackSettingsForLicenseKeyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q50="http://sms2.cdyne.com" minOccurs="0" name="GetPostbackSettingsForLicenseKeyResult" nillable="true" type="q50:ArrayOfPostbackSettingsResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPostbackEnabledForPhoneNumber">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+        <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
+        <xs:element xmlns:q51="http://sms2.cdyne.com" minOccurs="0" name="PostbackType" type="q51:SMSPostbackType" />
+        <xs:element minOccurs="0" name="Enabled" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPostbackEnabledForPhoneNumberResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://sms2.cdyne.com" minOccurs="0" name="SetPostbackEnabledForPhoneNumberResult" type="q52:SMSPostbackReturnCode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPostbackUrlForPhoneNumber">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+        <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
+        <xs:element xmlns:q53="http://sms2.cdyne.com" minOccurs="0" name="PostbackType" type="q53:SMSPostbackType" />
+        <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPostbackUrlForPhoneNumberResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q54="http://sms2.cdyne.com" minOccurs="0" name="SetPostbackUrlForPhoneNumberResult" type="q54:SMSPostbackReturnCode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPostbackEnabledForLicenseKey">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+        <xs:element xmlns:q55="http://sms2.cdyne.com" minOccurs="0" name="PostbackType" type="q55:SMSPostbackType" />
+        <xs:element minOccurs="0" name="Enabled" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPostbackEnabledForLicenseKeyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q56="http://sms2.cdyne.com" minOccurs="0" name="SetPostbackEnabledForLicenseKeyResult" type="q56:SMSPostbackReturnCode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPostbackUrlForLicenseKey">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+        <xs:element xmlns:q57="http://sms2.cdyne.com" minOccurs="0" name="PostbackType" type="q57:SMSPostbackType" />
+        <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPostbackUrlForLicenseKeyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q58="http://sms2.cdyne.com" minOccurs="0" name="SetPostbackUrlForLicenseKeyResult" type="q58:SMSPostbackReturnCode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateMediaFromContent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q59="http://sms2.cdyne.com" minOccurs="0" name="request" nillable="true" type="q59:CreateMediaContentRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="CreateMediaContentRequest">
+    <xs:sequence>
+      <xs:element name="Base64EncodedContent" nillable="true" type="xs:string" />
+      <xs:element name="Filename" nillable="true" type="xs:string" />
+      <xs:element name="LicenseKey" type="ser:guid" />
+      <xs:element xmlns:q60="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Tags" nillable="true" type="q60:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q61="http://sms2.cdyne.com" name="CreateMediaContentRequest" nillable="true" type="q61:CreateMediaContentRequest" />
+  <xs:element name="CreateMediaFromContentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q62="http://sms2.cdyne.com" minOccurs="0" name="CreateMediaFromContentResult" nillable="true" type="q62:MediaMetadata" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="MediaMetadata">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FileDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileSize" type="xs:long" />
+      <xs:element minOccurs="0" name="MediaId" type="xs:long" />
+      <xs:element minOccurs="0" name="MimeType" nillable="true" type="xs:string" />
+      <xs:element xmlns:q63="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Tags" nillable="true" type="q63:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q64="http://sms2.cdyne.com" name="MediaMetadata" nillable="true" type="q64:MediaMetadata" />
+  <xs:element name="CreateMediaFromUrl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q65="http://sms2.cdyne.com" minOccurs="0" name="request" nillable="true" type="q65:CreateMediaUrlRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="CreateMediaUrlRequest">
+    <xs:sequence>
+      <xs:element name="Filename" nillable="true" type="xs:string" />
+      <xs:element name="LicenseKey" type="ser:guid" />
+      <xs:element xmlns:q66="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Tags" nillable="true" type="q66:ArrayOfstring" />
+      <xs:element name="Url" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q67="http://sms2.cdyne.com" name="CreateMediaUrlRequest" nillable="true" type="q67:CreateMediaUrlRequest" />
+  <xs:element name="CreateMediaFromUrlResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q68="http://sms2.cdyne.com" minOccurs="0" name="CreateMediaFromUrlResult" nillable="true" type="q68:MediaMetadata" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMedia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+        <xs:element minOccurs="0" name="MediaId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMediaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetMediaResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMediaInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q69="http://sms2.cdyne.com" minOccurs="0" name="criteria" nillable="true" type="q69:MediaCriteria" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="MediaCriteria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FileType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FilenamePattern" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IncomingMessageId" type="ser:guid" />
+      <xs:element name="LicenseKey" type="ser:guid" />
+      <xs:element minOccurs="0" name="MaximumFileSize" type="xs:long" />
+      <xs:element minOccurs="0" name="MediaId" type="xs:long" />
+      <xs:element minOccurs="0" name="MinimumFileSize" type="xs:long" />
+      <xs:element minOccurs="0" name="OutgoingMessageId" type="ser:guid" />
+      <xs:element minOccurs="0" name="PageNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="PageSize" type="xs:int" />
+      <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+      <xs:element xmlns:q70="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Tags" nillable="true" type="q70:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q71="http://sms2.cdyne.com" name="MediaCriteria" nillable="true" type="q71:MediaCriteria" />
+  <xs:element name="GetMediaInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q72="http://sms2.cdyne.com" minOccurs="0" name="GetMediaInfoResult" nillable="true" type="q72:MediaReply" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="MediaReply">
+    <xs:sequence>
+      <xs:element xmlns:q73="http://sms2.cdyne.com" minOccurs="0" name="Media" nillable="true" type="q73:ArrayOfMediaMetadata" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q74="http://sms2.cdyne.com" name="MediaReply" nillable="true" type="q74:MediaReply" />
+  <xs:complexType name="ArrayOfMediaMetadata">
+    <xs:sequence>
+      <xs:element xmlns:q75="http://sms2.cdyne.com" minOccurs="0" maxOccurs="unbounded" name="MediaMetadata" nillable="true" type="q75:MediaMetadata" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q76="http://sms2.cdyne.com" name="ArrayOfMediaMetadata" nillable="true" type="q76:ArrayOfMediaMetadata" />
+  <xs:element name="RemoveMedia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+        <xs:element minOccurs="0" name="MediaId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveMediaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RemoveMediaResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnsubscribedNumbers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnsubscribedNumbersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q77="http://sms2.cdyne.com" minOccurs="0" name="GetUnsubscribedNumbersResult" nillable="true" type="q77:ArrayOfUnsubscribedNumber" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfUnsubscribedNumber">
+    <xs:sequence>
+      <xs:element xmlns:q78="http://sms2.cdyne.com" minOccurs="0" maxOccurs="unbounded" name="UnsubscribedNumber" nillable="true" type="q78:UnsubscribedNumber" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q79="http://sms2.cdyne.com" name="ArrayOfUnsubscribedNumber" nillable="true" type="q79:ArrayOfUnsubscribedNumber" />
+  <xs:complexType name="UnsubscribedNumber">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EntryDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q80="http://sms2.cdyne.com" name="UnsubscribedNumber" nillable="true" type="q80:UnsubscribedNumber" />
+  <xs:element name="ReadIncomingMessages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q81="http://sms2.cdyne.com" minOccurs="0" name="Criteria" nillable="true" type="q81:IncomingMessageCriteria" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="IncomingMessageCriteria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IncomingMessageID" type="ser:guid" />
+      <xs:element name="LicenseKey" type="ser:guid" />
+      <xs:element minOccurs="0" name="OutgoingMessageID" type="ser:guid" />
+      <xs:element minOccurs="0" name="PageNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="PageSize" type="xs:int" />
+      <xs:element minOccurs="0" name="ReferenceID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UnreadMessagesOnly" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q82="http://sms2.cdyne.com" name="IncomingMessageCriteria" nillable="true" type="q82:IncomingMessageCriteria" />
+  <xs:element name="ReadIncomingMessagesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q83="http://sms2.cdyne.com" minOccurs="0" name="ReadIncomingMessagesResult" nillable="true" type="q83:ArrayOfIncomingMessageResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfIncomingMessageResponse">
+    <xs:sequence>
+      <xs:element xmlns:q84="http://sms2.cdyne.com" minOccurs="0" maxOccurs="unbounded" name="IncomingMessageResponse" nillable="true" type="q84:IncomingMessageResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q85="http://sms2.cdyne.com" name="ArrayOfIncomingMessageResponse" nillable="true" type="q85:ArrayOfIncomingMessageResponse" />
+  <xs:complexType name="IncomingMessageResponse">
+    <xs:sequence>
+      <xs:element xmlns:q86="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Attachments" nillable="true" type="q86:ArrayOflong" />
+      <xs:element minOccurs="0" name="From" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IncomingMessageID" type="ser:guid" />
+      <xs:element minOccurs="0" name="OutgoingMessageID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Payload" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReceivedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Subject" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="To" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Udh" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q87="http://sms2.cdyne.com" name="IncomingMessageResponse" nillable="true" type="q87:IncomingMessageResponse" />
+  <xs:element name="ReadMessageStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LicenseKey" type="ser:guid" />
+        <xs:element minOccurs="0" name="MessageId" type="ser:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReadMessageStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q88="http://sms2.cdyne.com" minOccurs="0" name="ReadMessageStatusResult" nillable="true" type="q88:OutgoingMessageResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="OutgoingMessageResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Attachments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="From" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MessageID" type="ser:guid" />
+      <xs:element xmlns:q89="http://sms2.cdyne.com" minOccurs="0" name="MessageStatus" type="q89:MessageStatus" />
+      <xs:element minOccurs="0" name="SentTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="To" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q90="http://sms2.cdyne.com" name="OutgoingMessageResponse" nillable="true" type="q90:OutgoingMessageResponse" />
+  <xs:simpleType name="MessageStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Hold" />
+      <xs:enumeration value="Sent">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">200</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Ready">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">201</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Processing">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">202</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="InvalidDid">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">400</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="InvalidLicenseKey">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">401</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="AccountSuspended">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">402</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="StopOnPhoneNumber">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">403</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MissingDidOrInvalidMessageId">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">404</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="InvalidDateTime">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">405</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="InvalidDestination">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">406</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="NoMessage">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">411</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MessageExceedsLimit">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">413</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Failed">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">506</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Cancelled">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">507</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="FailedByProvider">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">508</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element xmlns:q91="http://sms2.cdyne.com" name="MessageStatus" nillable="true" type="q91:MessageStatus" />
+  <xs:element name="SendMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q92="http://sms2.cdyne.com" minOccurs="0" name="Request" nillable="true" type="q92:OutgoingMessageRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="OutgoingMessageRequest">
+    <xs:sequence>
+      <xs:element xmlns:q93="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Attachments" nillable="true" type="q93:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Body" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Concatenate" type="xs:boolean" />
+      <xs:element minOccurs="0" name="From" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsUnicode" type="xs:boolean" />
+      <xs:element name="LicenseKey" type="ser:guid" />
+      <xs:element minOccurs="0" name="PostbackUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferenceID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ScheduledDateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Subject" nillable="true" type="xs:string" />
+      <xs:element xmlns:q94="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="To" nillable="true" type="q94:ArrayOfstring" />
+      <xs:element name="UseMMS" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q95="http://sms2.cdyne.com" name="OutgoingMessageRequest" nillable="true" type="q95:OutgoingMessageRequest" />
+  <xs:element name="SendMessageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q96="http://sms2.cdyne.com" minOccurs="0" name="SendMessageResult" nillable="true" type="q96:ArrayOfOutgoingMessageResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfOutgoingMessageResponse">
+    <xs:sequence>
+      <xs:element xmlns:q97="http://sms2.cdyne.com" minOccurs="0" maxOccurs="unbounded" name="OutgoingMessageResponse" nillable="true" type="q97:OutgoingMessageResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element xmlns:q98="http://sms2.cdyne.com" name="ArrayOfOutgoingMessageResponse" nillable="true" type="q98:ArrayOfOutgoingMessageResponse" />
+</xs:schema>
